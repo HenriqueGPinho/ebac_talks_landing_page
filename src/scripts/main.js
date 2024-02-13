@@ -1,5 +1,3 @@
-AOS.init();
-
 const eventDate = new Date("Sep 10, 2024 19:00:00");
 const eventTimeStamp = eventDate.getTime();
 
@@ -8,7 +6,7 @@ const hoursInMilliseconds = 1000 * 60 * 60;
 const minutesInMilliseconds = 1000 * 60;
 const secondsInMilliseconds = 1000; 
 
-const timeCounter = setInterval(function () {
+function countTime() {
   const now = new Date();
   const currentTimeStamp = now.getTime();
 
@@ -19,10 +17,16 @@ const timeCounter = setInterval(function () {
   const minutesToEvent = Math.floor((timeToEvent % hoursInMilliseconds) / minutesInMilliseconds);
   const secondsToEvent = Math.floor((timeToEvent % minutesInMilliseconds) / secondsInMilliseconds);
 
-  document.getElementById('counter').innerHTML = `O maior evento de tecnologia do Brasil começa em ${daysToEvent}d ${hoursToEvent}h ${minutesToEvent}min ${secondsToEvent}s`
+  document.getElementById('counter').innerHTML = `${daysToEvent}d ${hoursToEvent}h ${minutesToEvent}min ${secondsToEvent}s`
 
   if (timeToEvent < 0) {
-    clearInterval(timeCounter);
-    document.getElementById('counter').innerHTML = "Evento expirado!";
+    document.getElementById('presentation').innerHTML = `Evento expirado!<span id="counter"></span>`;
+
+    return;
   }
-}, 1000);
+
+  setTimeout(countTime, 1000);
+}
+
+countTime();
+AOS.init();
